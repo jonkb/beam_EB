@@ -99,9 +99,9 @@ if plt_eigfuns:
     ax.set_ylabel("$1 + cos(\lambda L)cosh(\lambda L)$")
     ax.set_ylim(-40, 40)
     ax.grid()
-    fname = "eigenvalues.pdf"
-    fig.savefig(fname)
-    print(f"Eigenvalues plot saved to {fname}")
+    pname = os.path.join(out_dir, f"eigenvalues.pdf")
+    fig.savefig(pname)
+    print(f"Eigenvalues plot saved to {pname}")
     # See if the eigenfunctions look right
     fig, ax = plt.subplots(figsize=figsz)
     fig.subplots_adjust(.08, .15, .83, .97)
@@ -112,9 +112,9 @@ if plt_eigfuns:
     ax.set_xlabel("x")
     ax.grid()
     fig.legend()
-    fname = "eigenfunctions.pdf"
-    fig.savefig(fname)
-    print(f"Eigenfunctions plot saved to {fname}")
+    pname = os.path.join(out_dir, f"eigenfunctions.pdf")
+    fig.savefig(pname)
+    print(f"Eigenfunctions plot saved to {pname}")
     plt.show()
     quit()
 
