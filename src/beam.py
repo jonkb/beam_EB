@@ -16,15 +16,16 @@ plt_eigfuns = False     # If True, plot eigenfunctions instead of simulating
 np.set_printoptions(precision=4)
 
 # Specify the forcing function
-input_type = "sin"     # "sin", "sweptsin", or "impulse"
+input_type = "impulse"     # "sin", "sweptsin", or "impulse"
 s0 = 1      # q = delta(x-x0)*sin(ws*t)
 alpha = -4  # [for input_type sweptsin] d/dt {ws}
 ws_t = lambda t: 40 + alpha*t   # [for input_type sweptsin]
 ws = 22     # [for input_type sin] frequency of source / forcing function
-x0 = 0.4      # Location at which forcing function is applied
+x0 = 0.5      # Location at which forcing function is applied
 #x0 = 0.78344    # Node of mode 2
 #t1 = 1.14   # Final time
 t1 = 3.57  # 2 Periods of mode 1
+#t1 = 1.714  # 6 Periods of mode 2
 
 # Parameters of beam
 L = 1       # Length of beam
@@ -34,7 +35,7 @@ rho = 1     # Linear density
 # Resolution & accuracy options
 Nn = 25     # Number of terms in series
 Nx = 250    # Resolution in x
-Nt = 100    # Number of timesteps
+Nt = 537    # Number of timesteps
 # Integration settings
 atol = 1e-6 # Integration tolerance
 ilimit = 8000   # Max number of intervals for quad
@@ -44,11 +45,12 @@ figsz = (5,3)
 spadj = (.09, .11, .98, .91)
 to_save = True
 save_all_frames = False
-fps = Nt / t1
+slowdown_factor = 5
+fps = Nt / t1 / slowdown_factor
 umargin = 0.2   # By what fraction to increase the y-scale beyond the max U
 lw = 4          # Beam line width
-tag = "s22x4"  # Tag for filename
-#tag = "impulse_L"  # Tag for filename
+#tag = "s22x2_slow5x"  # Tag for filename
+tag = "impulse_x5_slow5x"  # Tag for filename
 #tag = "impulse_N2"  # Tag for filename
 out_dir = "../tmp/"
 
