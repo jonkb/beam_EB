@@ -6,7 +6,9 @@ Euler-Bernoulli beam theory is a simplified model for flexural motion of thin
 beams. The Euler-Bernoulli beam equation is as follows:
 $$\frac{\partial^2}{\partial x^2}(EI\frac{\partial^2 u}{\partial x^2}) = -\rho\frac{\partial^2 u}{\partial t^2} + q$$
 
-The details of solution and implementation for this code are presented in [1].
+The details of solution and implementation with this code are presented in [1].
+
+At the moment, this code only supports clamped-free boundary conditions. Changing the boundary conditions would require re-deriving the eigenfunctions, which would change the generallized finite integral transform.
 
 ## Setup
 beam_EB was written in Python 3.10. Backwards-compatability with older 

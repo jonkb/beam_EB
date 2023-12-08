@@ -31,8 +31,8 @@ rho = 1     # Linear density
 
 # Resolution & accuracy options
 Nn = 25     # Number of terms in series
-Nx = 500    # Resolution in x
-Nt = 160    # Number of timesteps
+Nx = 250    # Resolution in x
+Nt = 100    # Number of timesteps
 t1 = 10     # Final time
 # Integration settings
 atol = 1e-6 # Integration tolerance
@@ -42,6 +42,7 @@ ilimit = 8000   # Max number of intervals for quad
 figsz = (5,3)
 spadj = (.09, .11, .98, .91)
 to_save = True
+save_all_frames = True
 fps = Nt / t1
 umargin = 0.2   # By what fraction to increase the y-scale beyond the max U
 lw = 4          # Beam line width
@@ -145,7 +146,8 @@ else:
         cnvres, *quadout = spi.quad(cnvarg, 0, t, limit=ilimit, epsabs=atol,
             full_output=True)
         if quadout[0] > atol:
-            print(f"At t={t:.2f}, n={n}: quad err = {quadout[0]}")
+            print(f"Significant quad error at t={t:.2f}, n={n}: "
+                f"err = {quadout[0]}")
         return c0 * cnvres, quadout
 
     # Calculate all of ubars_{nt}
@@ -179,8 +181,8 @@ ax.set_ylabel("u")
 ax.set_ylim(-(1+umargin)*Umax, (1+umargin)*Umax)
 zh, = ax.plot(vx, U0, "k", lw=lw, solid_capstyle="round")
 # Input location annotation
-ax.annotate("Forcing\nlocation", xy=(x0, 0), xytext=(x0, -Umax*.7),
-    arrowprops=dict(facecolor='blue', shrink=0.1), ha="center")
+ax.annotate("Forcing\nlocation", xy=(x0, 0), xytext=(x0, -Umax*.9),
+    arrowprops=dict(facecolor='blue', shrink=0.1), ha="right")
 
 def update_animation(frmi):
     # Update the figure to frame frmi
@@ -188,20 +190,26 @@ def update_animation(frmi):
     ti = vt[frmi]
     frqtag = ""
     if input_type == "sin":
-        frqtag = f", frq $\\omega_n={ws}$"
+        frqtag = f", frq $\\omega_s={ws}$"
     if input_type == "sweptsin":
-        frqtag = f", frq $\\omega_n={ws_t(ti):.2f}$"
+        frqtag = f", frq $\\omega_s={ws_t(ti):.2f}$"
     fig.suptitle(f"time $t={ti:.2f}/{t1:.2f}${frqtag}")
     zh.set_ydata(U)
     return zh
 
 anim = FuncAnimation(fig, update_animation, frames=Nt,
     interval=1000/fps, repeat_delay=500)
-pname_anm = os.path.join(out_dir, f"beam_{tag}.gif")
 
 if to_save:
+    pname_anm = os.path.join(out_dir, f"beam_{tag}.gif")
     anim.save(pname_anm, writer='imagemagick', fps=fps)
     print(f"Animation saved to {pname_anm}")
+    if save_all_frames:
+        for i in range(Nt):
+            pname = os.path.join(out_dir, f"beam_{tag}_frm{i:003}.pdf")
+            update_animation(i)
+            fig.savefig(pname)
+        print(f"\tAll {Nt} frames saved as well")
 
 plt.show()
 
