@@ -1,7 +1,7 @@
 # beam_EB
 Simulation of a cantilever beam according to Euler-Bernoulli beam theory with time-varying applied point loads. 
 
-Figures and animations are found in the /figs/ directory.
+Figures and animations are found in the /figs/ and /animations/ directories, respectively.
 
 ## Background
 Euler-Bernoulli beam theory is a simplified model for flexural motion of thin
