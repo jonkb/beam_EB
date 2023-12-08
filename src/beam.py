@@ -21,8 +21,10 @@ s0 = 1      # q = delta(x-x0)*sin(ws*t)
 alpha = -4  # [for input_type sweptsin] d/dt {ws}
 ws_t = lambda t: 40 + alpha*t   # [for input_type sweptsin]
 ws = 30     # [for input_type sin] frequency of source / forcing function
-#x0 = 0.78344      # Location at which forcing function is applied
 x0 = 1      # Location at which forcing function is applied
+#x0 = 0.78344    # Node of mode 2
+t1 = 10     # Final time
+#t1 = 3.52   # 1 Period of mode 1
 
 # Parameters of beam
 L = 1       # Length of beam
@@ -32,8 +34,7 @@ rho = 1     # Linear density
 # Resolution & accuracy options
 Nn = 25     # Number of terms in series
 Nx = 250    # Resolution in x
-Nt = 100    # Number of timesteps
-t1 = 10     # Final time
+Nt = 120    # Number of timesteps
 # Integration settings
 atol = 1e-6 # Integration tolerance
 ilimit = 8000   # Max number of intervals for quad
@@ -46,8 +47,9 @@ save_all_frames = True
 fps = Nt / t1
 umargin = 0.2   # By what fraction to increase the y-scale beyond the max U
 lw = 4          # Beam line width
-#tag = "impulse_L"  # Tag for filename
 tag = "ss40xL"  # Tag for filename
+#tag = "impulse_L"  # Tag for filename
+#tag = "impulse_N2"  # Tag for filename
 out_dir = "../tmp/"
 
 ## Response u_{x,t} = sum_n{ ubar_{n,t} * X_{n,x} }
