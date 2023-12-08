@@ -22,4 +22,4 @@ $ python -m pip install -r requirements.txt
 ```
 
 ## References
-[1] J. K. Black and J. Blackham, "Solution of Euler-Bernoulli Beam Equation by Integral Transform Method," Journal of Applied Engineering Mathematics, Volume 10, December 2023. [Online]. Available: https://www.et.byu.edu/~vps/ME505/ME505.htm
+[1] J. K. Black and J. Blackham, "Solution of Euler-Bernoulli Beam Equation by Integral Transform Method," Journal of Applied Engineering Mathematics, Volume 10, December 2023. [Online]. Available: https://www.et.byu.edu/~vps/ME505/AAEM/V10-08.pdf
