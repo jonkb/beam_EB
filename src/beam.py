@@ -20,12 +20,12 @@ input_type = "impulse"     # "sin", "sweptsin", or "impulse"
 s0 = 1      # q = delta(x-x0)*sin(ws*t)
 alpha = -4  # [for input_type sweptsin] d/dt {ws}
 ws_t = lambda t: 40 + alpha*t   # [for input_type sweptsin]
-ws = 22     # [for input_type sin] frequency of source / forcing function
-x0 = 0.5      # Location at which forcing function is applied
+ws = 3.52     # [for input_type sin] frequency of source / forcing function
+x0 = 0.4      # Location at which forcing function is applied
 #x0 = 0.78344    # Node of mode 2
-#t1 = 1.14   # Final time
-t1 = 3.57  # 2 Periods of mode 1
-#t1 = 1.714  # 6 Periods of mode 2
+#t1 = 10     # Final time
+t1 = 3.574  # 2 Periods of mode 1
+#t1 = 1.711  # 6 Periods of mode 2
 
 # Parameters of beam
 L = 1       # Length of beam
@@ -35,22 +35,24 @@ rho = 1     # Linear density
 # Resolution & accuracy options
 Nn = 25     # Number of terms in series
 Nx = 250    # Resolution in x
-Nt = 537    # Number of timesteps
+Nt = 215    # Number of timesteps
 # Integration settings
 atol = 1e-6 # Integration tolerance
 ilimit = 8000   # Max number of intervals for quad
 
 # Plotting options
 figsz = (5,3)
-spadj = (.09, .11, .98, .91)
+#spadj = (.09, .11, .98, .91)
+spadj = (.15, .15, .98, .91)
 to_save = True
 save_all_frames = False
-slowdown_factor = 5
+slowdown_factor = 4
 fps = Nt / t1 / slowdown_factor
+dpi = 200
 umargin = 0.2   # By what fraction to increase the y-scale beyond the max U
 lw = 4          # Beam line width
-#tag = "s22x2_slow5x"  # Tag for filename
-tag = "impulse_x5_slow5x"  # Tag for filename
+tag = "impulse_x4_slow4x"  # Tag for filename
+#tag = "s3_x4_slow2x"  # Tag for filename
 #tag = "impulse_N2"  # Tag for filename
 out_dir = "../tmp/"
 
@@ -206,7 +208,7 @@ anim = FuncAnimation(fig, update_animation, frames=Nt,
 
 if to_save:
     pname_anm = os.path.join(out_dir, f"beam_{tag}.gif")
-    anim.save(pname_anm, writer='imagemagick', fps=fps)
+    anim.save(pname_anm, writer='imagemagick', fps=fps, dpi=dpi)
     print(f"Animation saved to {pname_anm}")
     if save_all_frames:
         for i in range(Nt):
