@@ -16,16 +16,17 @@ plt_eigfuns = False     # If True, plot eigenfunctions instead of simulating
 np.set_printoptions(precision=4)
 
 # Specify the forcing function
-input_type = "impulse"     # "sin", "sweptsin", or "impulse"
+input_type = "sin"     # "sin", "sweptsin", or "impulse"
 s0 = 1      # q = delta(x-x0)*sin(ws*t)
 alpha = -4  # [for input_type sweptsin] d/dt {ws}
 ws_t = lambda t: 40 + alpha*t   # [for input_type sweptsin]
-ws = 3.52     # [for input_type sin] frequency of source / forcing function
+#ws = 3.52     # [for input_type sin] frequency of source / forcing function
+ws = 22     # [for input_type sin] frequency of source / forcing function
 x0 = 0.4      # Location at which forcing function is applied
 #x0 = 0.78344    # Node of mode 2
 #t1 = 10     # Final time
-t1 = 3.574  # 2 Periods of mode 1
-#t1 = 1.711  # 6 Periods of mode 2
+#t1 = 3.574  # 2 Periods of mode 1
+t1 = 1.711  # 6 Periods of mode 2
 
 # Parameters of beam
 L = 1       # Length of beam
@@ -42,17 +43,20 @@ ilimit = 8000   # Max number of intervals for quad
 
 # Plotting options
 figsz = (5,3)
-#spadj = (.09, .11, .98, .91)
 spadj = (.15, .15, .98, .91)
+axlbls = True
+if not axlbls:
+    spadj = (.02, .03, .98, .91)
 to_save = True
 save_all_frames = False
 slowdown_factor = 4
 fps = Nt / t1 / slowdown_factor
-dpi = 200
+dpi = 100
 umargin = 0.2   # By what fraction to increase the y-scale beyond the max U
 lw = 4          # Beam line width
-tag = "impulse_x4_slow4x"  # Tag for filename
+#tag = "impulse_x4_slow4x"  # Tag for filename
 #tag = "s3_x4_slow2x"  # Tag for filename
+tag = "s22_x4_slow4x"  # Tag for filename
 #tag = "impulse_N2"  # Tag for filename
 out_dir = "../tmp/"
 
@@ -182,8 +186,13 @@ U0 = u_xt[:, 0]
 
 fig, ax = plt.subplots(figsize=figsz)
 fig.subplots_adjust(*spadj)
-ax.set_xlabel("x")
-ax.set_ylabel("u")
+if axlbls:
+    ax.set_xlabel("x")
+    ax.set_ylabel("u")
+else:
+    ax.set_xticks([])
+    ax.set_yticks([])
+
 ax.set_ylim(-(1+umargin)*Umax, (1+umargin)*Umax)
 zh, = ax.plot(vx, U0, "k", lw=lw, solid_capstyle="round")
 # Input location annotation
